@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revisar Evidencia</title>
+</head>
+<body>
+    
+    {% extends 'base.html' %}
+
+    {% block title %}Revisión de Evidencias{% endblock %}
+
+    {% block content %}
+        <h3 class="text-center">Revisión de Evidencias</h3>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Obra</th>
+                    <th>Tipo</th>
+                    <th>Descripción</th>
+                    <th>Archivo</th>
+                    <th>Subido por</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                {% for evidencia in evidencias %}
+                <tr>
+                    <td>{{ evidencia.obra.nombre }}</td>
+                    <td>{{ evidencia.tipo }}</td>
+                    <td>{{ evidencia.descripcion }}</td>
+                    <td>
+                        {% if evidencia.filepath.endswith('.jpg') or evidencia.filepath.endswith('.png') %}
+                            <img src="/{{ evidencia.filepath }}" alt="Evidencia" width="100">
+                        {% else %}
+                            <a href="/{{ evidencia.filepath }}" target="_blank">Ver Video</a>
+                        {% endif %}
+                    </td>
+                    <td>{{ evidencia.usuario.nombre }}</td>
+                    <td>
+                        <form action="{{ url_for('evidences.aprobar_evidencia', id=evidencia.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
+                        </form>
+                        <form action="{{ url_for('evidences.rechazar_evidencia', id=evidencia.id) }}" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-danger btn-sm">Rechazar</button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+                
+            </tbody>
+        </table>
+    {% endblock %}
+
+</body>
+</html>

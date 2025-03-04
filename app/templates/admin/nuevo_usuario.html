@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Usuario SGEP</title>
+</head>
+<body>
+    
+    {% extends 'base.html' %}
+
+    {% block title %}Nuevo Usuario{% endblock %}
+
+    {% block content %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h3 class="text-center">Crear Nuevo Usuario</h3>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="cedula" class="form-label">Cédula</label>
+                        <input type="text" name="cedula" id="cedula" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre</label>
+                        <input type="text" name="nombre" id="nombre" class="form-control" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="rol" class="form-label">Rol</label>
+                        <select name="rol" class="form-control" required>
+                            <option value="Administrador">Administrador</option>
+                            <option value="Supervisor">Supervisor</option>
+                            <option value="Maestro de Obra">Maestro de Obra</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" name="password" id="password" class="form-control" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary w-100">Crear Usuario</button>
+                </form>
+            </div>
+        </div>
+    {% endblock %}
+
+
+</body>
+</html>
