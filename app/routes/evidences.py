@@ -36,7 +36,41 @@ def subir_evidencia():
             db.session.add(evidencia)
             db.session.commit()
             flash('Evidencia subida exitosamente', 'success')
-            return redirect(url_for('evidences.listar_evidencias'))
+            return redirect(url_for('evidences.subir_evidencia'))
         
     obras = Obra.query.all()
     return render_template('evidences/subir.html', obras=obras)
+
+@evidence_bp.route('/revisar', methods=['GET'])
+@login_required
+def revisar_evidencias():
+    if current_user.rol != 'Supervisor':
+        return "Acceso no autorizado", 403
+
+    evidencias = Evidencia.query.all()  # Filtrar por estado 'pendiente' si es necesario
+    return render_template('evidences/revisar.html', evidencias=evidencias)
+
+@evidence_bp.route('/aprobar/<int:id>', methods=['POST'])
+@login_required
+def aprobar_evidencia(id):
+    if current_user.rol != 'Supervisor':
+        return "Acceso no autorizado", 403
+    
+    evidencia = Evidencia.query.get_or_404(id)
+    evidencia.aprobada = True
+    evidencia.aprobada_por = current_user.id
+    db.session.commit()
+    flash('Evidencia aprobada', 'success')
+    return redirect(url_for('evidences.revisar_evidencias'))
+
+@evidence_bp.route('/rechazar/<int:id>', methods=['POST'])
+@login_required
+def rechazar_evidencia(id):
+    if current_user.rol != 'Supervisor':
+        return "Acceso no autorizado", 403
+    
+    evidencia = Evidencia.query.get_or_404(id)
+    db.session.delete(evidencia)
+    db.session.commit()
+    flash('Evidencia rechazada', 'danger')
+    return redirect(url_for('evidences.revisar_evidencias'))
