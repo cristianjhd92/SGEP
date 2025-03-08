@@ -4,9 +4,9 @@ from flask_login import login_required, current_user
 # Blueprint de Dashboard
 dash_bp = Blueprint('dashboard', __name__)
 
-@dash_bp.route('/')
+@dash_bp.route('/', methods=['GET'])
+@dash_bp.route('/dashboard/', methods=['GET'])  # Mantiene compatibilidad
 @login_required
-
 def home():
     if current_user.rol == 'Administrador':
         return redirect(url_for('dashboard.admin_dashboard'))
