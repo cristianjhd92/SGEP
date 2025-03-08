@@ -37,7 +37,7 @@ with app.app_context():
         usuario = User(
             cedula='654321987', 
             nombre='Maestro Test', 
-            rol='Maestro de obra',
+            rol='Maestro de Obra',
             password_hash=generate_password_hash('maestro123')  # Contraseña segura
         )
         db.session.add(usuario)
