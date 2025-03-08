@@ -9,6 +9,7 @@ admin_bp = Blueprint('admin', __name__)
 
 # Verificar que solo administradores accedan
 def admin_required(f):
+    @wraps(f)
     def wrap(*args, **kwargs):
         if current_user.rol != 'Administrador':
             flash('Acceso no autorizado', 'danger')
