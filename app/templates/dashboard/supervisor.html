@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supervisor Dashboard SGEP</title>
+</head>
+<body>
+    
+    {% extends 'base.html' %}
+
+    {% block title %}Dashboard Supervisor{% endblock %}
+
+    {% block content %}
+        <div class="container text-center">
+            <h2>Panel del Supervisor</h2>
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Revisión de Evidencias</h5>
+                            <p class="card-text">Ver y aprobar evidencias subidas por los Maestros de Obra.</p>
+                            <a href="{{ url_for('evidences.revisar_evidencias') }}" class="btn btn-success">Revisar Evidencias</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">Reportes</h5>
+                            <p class="card-text">Monitoreo de evidencias aprobadas y rechazadas.</p>
+                            <a href="#" class="btn btn-info">Ver Reportes</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endblock %}
+
+
+</body>
+</html>
